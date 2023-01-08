@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Spring Security Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<!-- create header -->
+<div th:replace="fragments/header :: header"></div>
+
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1>Registration</h1>
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully registered!</div>
+            </div>
+
+            <!-- unsuccessful message -->
+            <!--            <div th:if="${param.unsuccess}">-->
+            <!--                <div class="alert alert-warning">User is already exist!</div>-->
+            <!--            </div>-->
+
+            <div th:if="${unsuccessful}">
+                <div class="alert alert-warning">User with this email is already exist!</div>
+            </div>
+
+            <!-- error message -->
+            <div th:if="${wrong}">
+                <div class="alert alert-danger">
+                    <span th:utext="'Wrong data - ' + ${wrong} + '!'"></span>
+                </div>
+            </div>
+
+            <form th:action="@{/registration}" method="post" th:object="${user}">
+                <div class="form-group">
+                    <label class="control-label" for="firstName">First Name </label>
+                    <input id="firstName" class="form-control" th:field="*{firstName}" placeholder="Enter first name"
+                           required autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="lastName">Last Name </label>
+                    <input id="lastName" class="form-control" th:field="*{lastName}" placeholder="Enter last name"
+                           required autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="email"> Email </label>
+                    <input id="email" class="form-control" th:field="*{email}" placeholder="Enter Email" required
+                           autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="password">Password </label>
+                    <input id="password" class="form-control" type="password" th:field="*{password}"
+                           placeholder="Enter password" required autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="login-submit" id="login-submit"
+                                   class="form-control btn btn-primary" value="Register"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="form-group">
+                <span>Already registered? <a href="#" th:href="@{/auth/login}">Login here</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- create footer -->
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+</html>

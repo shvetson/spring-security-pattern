@@ -1,0 +1,12 @@
+HELP.md
+.gradle
+build/
+.idea/
+.vscode/
+logs
+*.log
+/TODO
+
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
